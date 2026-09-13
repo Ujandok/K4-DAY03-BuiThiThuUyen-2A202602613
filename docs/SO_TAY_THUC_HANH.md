@@ -29,7 +29,7 @@ gantt
 ## 📝 CHECKLIST CÁ NHÂN THEO TỪNG MỐC THỜI GIAN
 
 ### 🔷 PHẦN 1 (45 phút): Đánh giá Agentic Fit & Tool Schemas
-* [ ] Chọn 1 chủ đề thực tế từ tệp `docs/DANH_SACH_DE_TAI.md`.
+* [X] Chọn 1 chủ đề thực tế từ tệp `docs/DANH_SACH_DE_TAI.md`.
 * [ ] Điền bảng Scoring Matrix 4 tiêu chí Agentic Fit vào file `docs/trace_eval.md`.
 * [ ] Khai báo Tool Schema đúng chuẩn JSON Schema cho `schedule_appointment` vào file `src/tools.py`.
 * [ ] Thêm 5 câu test case thực tế vào file `config/test_cases.json`.

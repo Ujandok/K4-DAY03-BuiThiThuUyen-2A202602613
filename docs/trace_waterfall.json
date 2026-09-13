@@ -1,29 +1,217 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
+    "query": "Chào bạn, cho mình hỏi VinBus là dịch vụ gì và có những hình thức thanh toán nào khi đi xe buýt điện?",
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "Câu hỏi chung về dịch vụ VinBus, trả lời trực tiếp không cần gọi Tool.",
+    "output": "[Mock Agent Response]: Xin chào! VinBus là hệ thống xe buýt điện của Vingroup, vận hành 100% bằng điện, có wifi và điều hòa miễn phí, hiện khai thác 10 tuyến có trợ giá E01-E10 tại Hà Nội. Hành khách có thể thanh toán bằng vé lượt mua trên xe, thẻ tháng VinBus, hoặc quẹt thẻ chip nội địa không tiếp xúc qua NAPAS.",
+    "latency_ms": 3.0
   },
   {
     "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Cho mình tra cứu lộ trình, giờ hoạt động và giá vé của tuyến xe buýt điện E01.",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "thought": "Hành khách muốn tra cứu thông tin tuyến E01. Tôi sẽ gọi tool route_query.",
+    "tool_name": "route_query",
     "arguments": {
-      "student_id": "SV2026001"
+      "query": "E01"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "route_code": "E01",
+      "matched_routes": [
+        "E01"
+      ],
+      "data": {
+        "route_name": "Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park",
+        "origin": "Bến xe Mỹ Đình (Nam Từ Liêm)",
+        "destination": "KĐT Vinhomes Ocean Park (Gia Lâm)",
+        "main_stops": [
+          "Bến xe Mỹ Đình",
+          "Phạm Hùng",
+          "Khuất Duy Tiến",
+          "Ngã Tư Sở",
+          "Trường Chinh",
+          "Cầu Vĩnh Tuy",
+          "Cổ Linh",
+          "KĐT Ocean Park"
+        ],
+        "operating_hours": "05:00 - 21:00",
+        "frequency_minutes": 20,
+        "single_fare_vnd": 12000,
+        "monthly_fare_vnd": 140000,
+        "status": "Đang khai thác"
+      },
+      "note": null
+    },
+    "latency_ms": 0.0
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Cho mình tra cứu lộ trình, giờ hoạt động và giá vé của tuyến xe buýt điện E01.",
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "Các Observation đã đủ thông tin, không cần gọi thêm Tool. Chốt Final Answer.",
+    "output": "Tuyến E01 - Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park: chạy từ Bến xe Mỹ Đình (Nam Từ Liêm) đến KĐT Vinhomes Ocean Park (Gia Lâm), giờ hoạt động 05:00 - 21:00, tần suất 20 phút/chuyến, giá vé lượt 12000 VNĐ, vé tháng 140000 VNĐ (các điểm dừng chính: Bến xe Mỹ Đình, Phạm Hùng, Khuất Duy Tiến, Ngã Tư Sở, Trường Chinh, Cầu Vĩnh Tuy, Cổ Linh, KĐT Ocean Park).",
+    "latency_ms": 0.0
+  },
+  {
+    "step": 1,
+    "query": "Mình muốn đăng ký vé tháng tuyến E02 cho Trần Thị Bình, số điện thoại 0987654321, bắt đầu từ tháng 10/2026 nhé.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Hành khách đã cung cấp đủ mã tuyến E02, thông tin cá nhân và tháng bắt đầu. Gọi tool register_monthly_ticket.",
+    "tool_name": "register_monthly_ticket",
+    "arguments": {
+      "passenger_name": "Trần Thị Bình",
+      "phone_number": "0987654321",
+      "route_code": "E02",
+      "start_month": "10/2026",
+      "ticket_type": "standard"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "ticket_id": "VB-E02-4321",
+      "passenger_name": "Trần Thị Bình",
+      "phone_number": "0987654321",
+      "route_code": "E02",
+      "route_name": "Hào Nam - Long Biên - KĐT Vinhomes Ocean Park",
+      "start_month": "10/2026",
+      "ticket_type": "standard",
+      "ticket_type_requested": "standard",
+      "price_vnd": 140000,
+      "card_issue_fee_vnd": 60000,
+      "message": "Đăng ký vé tháng thành công cho Trần Thị Bình (0987654321) trên tuyến E02 - Hào Nam - Long Biên - KĐT Vinhomes Ocean Park, bắt đầu từ tháng 10/2026, loại vé 'standard', phí tem tháng 140,000 VNĐ (chưa gồm phí phát hành thẻ 60,000 VNĐ thu một lần)."
+    },
+    "latency_ms": 1.01
+  },
+  {
+    "step": 2,
+    "query": "Mình muốn đăng ký vé tháng tuyến E02 cho Trần Thị Bình, số điện thoại 0987654321, bắt đầu từ tháng 10/2026 nhé.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Các Observation đã đủ thông tin, không cần gọi thêm Tool. Chốt Final Answer.",
+    "output": "Đăng ký vé tháng thành công cho Trần Thị Bình (0987654321) trên tuyến E02 - Hào Nam - Long Biên - KĐT Vinhomes Ocean Park, bắt đầu từ tháng 10/2026, loại vé 'standard', phí tem tháng 140,000 VNĐ (chưa gồm phí phát hành thẻ 60,000 VNĐ thu một lần).",
+    "latency_ms": 1.0
+  },
+  {
+    "step": 1,
+    "query": "Mình đi làm hằng ngày từ Vinhomes Ocean Park đến Bến xe Mỹ Đình. Bạn tra giúp mình tuyến xe buýt điện nào chạy chặng đó rồi đăng ký vé tháng luôn cho Nguyễn Minh Khôi, số điện thoại 0912345678, bắt đầu từ tháng 10/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Hành khách muốn đăng ký vé tháng nhưng chưa cung cấp mã tuyến. Gọi route_query với từ khóa 'Vinhomes Ocean Park - Bến xe Mỹ Đình' để xác định mã tuyến trước.",
+    "tool_name": "route_query",
+    "arguments": {
+      "query": "Vinhomes Ocean Park - Bến xe Mỹ Đình"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "route_code": "E01",
+      "matched_routes": [
+        "E01",
+        "E03"
+      ],
+      "data": {
+        "route_name": "Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park",
+        "origin": "Bến xe Mỹ Đình (Nam Từ Liêm)",
+        "destination": "KĐT Vinhomes Ocean Park (Gia Lâm)",
+        "main_stops": [
+          "Bến xe Mỹ Đình",
+          "Phạm Hùng",
+          "Khuất Duy Tiến",
+          "Ngã Tư Sở",
+          "Trường Chinh",
+          "Cầu Vĩnh Tuy",
+          "Cổ Linh",
+          "KĐT Ocean Park"
+        ],
+        "operating_hours": "05:00 - 21:00",
+        "frequency_minutes": 20,
+        "single_fare_vnd": 12000,
+        "monthly_fare_vnd": 140000,
+        "status": "Đang khai thác"
+      },
+      "note": "Có 2 tuyến cùng khớp (E01, E03), đang trả về E01. Hãy nêu các lựa chọn còn lại cho hành khách."
+    },
+    "latency_ms": 0.0
+  },
+  {
+    "step": 2,
+    "query": "Mình đi làm hằng ngày từ Vinhomes Ocean Park đến Bến xe Mỹ Đình. Bạn tra giúp mình tuyến xe buýt điện nào chạy chặng đó rồi đăng ký vé tháng luôn cho Nguyễn Minh Khôi, số điện thoại 0912345678, bắt đầu từ tháng 10/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Đã xác định được mã tuyến E01 từ Observation. Tiếp tục gọi register_monthly_ticket để đăng ký vé tháng. Observation liệt kê 2 tuyến (E01, E03), chọn E01 vì khớp cả điểm đi lẫn điểm đến.",
+    "tool_name": "register_monthly_ticket",
+    "arguments": {
+      "passenger_name": "Nguyễn Minh Khôi",
+      "phone_number": "0912345678",
+      "route_code": "E01",
+      "start_month": "10/2026",
+      "ticket_type": "standard"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "ticket_id": "VB-E01-5678",
+      "passenger_name": "Nguyễn Minh Khôi",
+      "phone_number": "0912345678",
+      "route_code": "E01",
+      "route_name": "Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park",
+      "start_month": "10/2026",
+      "ticket_type": "standard",
+      "ticket_type_requested": "standard",
+      "price_vnd": 140000,
+      "card_issue_fee_vnd": 60000,
+      "message": "Đăng ký vé tháng thành công cho Nguyễn Minh Khôi (0912345678) trên tuyến E01 - Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park, bắt đầu từ tháng 10/2026, loại vé 'standard', phí tem tháng 140,000 VNĐ (chưa gồm phí phát hành thẻ 60,000 VNĐ thu một lần)."
+    },
+    "latency_ms": 0.9
+  },
+  {
+    "step": 3,
+    "query": "Mình đi làm hằng ngày từ Vinhomes Ocean Park đến Bến xe Mỹ Đình. Bạn tra giúp mình tuyến xe buýt điện nào chạy chặng đó rồi đăng ký vé tháng luôn cho Nguyễn Minh Khôi, số điện thoại 0912345678, bắt đầu từ tháng 10/2026.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Các Observation đã đủ thông tin, không cần gọi thêm Tool. Chốt Final Answer.",
+    "output": "Tuyến E01 - Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park: chạy từ Bến xe Mỹ Đình (Nam Từ Liêm) đến KĐT Vinhomes Ocean Park (Gia Lâm), giờ hoạt động 05:00 - 21:00, tần suất 20 phút/chuyến, giá vé lượt 12000 VNĐ, vé tháng 140000 VNĐ (các điểm dừng chính: Bến xe Mỹ Đình, Phạm Hùng, Khuất Duy Tiến, Ngã Tư Sở, Trường Chinh, Cầu Vĩnh Tuy, Cổ Linh, KĐT Ocean Park). Đăng ký vé tháng thành công cho Nguyễn Minh Khôi (0912345678) trên tuyến E01 - Bến xe Mỹ Đình - Ngã Tư Sở - KĐT Vinhomes Ocean Park, bắt đầu từ tháng 10/2026, loại vé 'standard', phí tem tháng 140,000 VNĐ (chưa gồm phí phát hành thẻ 60,000 VNĐ thu một lần).",
+    "latency_ms": 1.0
+  },
+  {
+    "step": 1,
+    "query": "Cho mình xem lộ trình và giờ chạy của tuyến E07 với.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Hành khách muốn tra cứu thông tin tuyến E07. Tôi sẽ gọi tool route_query.",
+    "tool_name": "route_query",
+    "arguments": {
+      "query": "E07"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "route_code": "E07",
+      "matched_routes": [
+        "E07"
+      ],
+      "data": {
+        "route_name": "Long Biên - Cửa Nam - KĐT Vinhomes Smart City",
+        "origin": "Điểm trung chuyển Long Biên (Ba Đình)",
+        "destination": "KĐT Vinhomes Smart City (Nam Từ Liêm)",
+        "main_stops": [
+          "Long Biên",
+          "Hàng Đậu",
+          "Cửa Nam",
+          "Nguyễn Thái Học",
+          "Kim Mã",
+          "Lê Đức Thọ",
+          "KĐT Smart City"
+        ],
+        "operating_hours": "05:00 - 21:00",
+        "frequency_minutes": 20,
+        "single_fare_vnd": 10000,
+        "monthly_fare_vnd": 140000,
+        "status": "Đang khai thác"
+      },
+      "note": null
+    },
+    "latency_ms": 0.0
+  },
+  {
+    "step": 2,
+    "query": "Cho mình xem lộ trình và giờ chạy của tuyến E07 với.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Các Observation đã đủ thông tin, không cần gọi thêm Tool. Chốt Final Answer.",
+    "output": "Tuyến E07 - Long Biên - Cửa Nam - KĐT Vinhomes Smart City: chạy từ Điểm trung chuyển Long Biên (Ba Đình) đến KĐT Vinhomes Smart City (Nam Từ Liêm), giờ hoạt động 05:00 - 21:00, tần suất 20 phút/chuyến, giá vé lượt 10000 VNĐ, vé tháng 140000 VNĐ (các điểm dừng chính: Long Biên, Hàng Đậu, Cửa Nam, Nguyễn Thái Học, Kim Mã, Lê Đức Thọ, KĐT Smart City).",
+    "latency_ms": 0.0
   }
 ]
